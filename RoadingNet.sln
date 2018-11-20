@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoadingNet", "RoadingNet.Core\RoadingNet.csproj", "{CECDCC4E-FCF1-47F1-87EE-1E2E976D8DEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roading.Net.Test", "Roading.Net.Test\Roading.Net.Test.csproj", "{98A0B842-75A8-4C0B-8868-1737FA1AAF23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CECDCC4E-FCF1-47F1-87EE-1E2E976D8DEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CECDCC4E-FCF1-47F1-87EE-1E2E976D8DEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CECDCC4E-FCF1-47F1-87EE-1E2E976D8DEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CECDCC4E-FCF1-47F1-87EE-1E2E976D8DEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98A0B842-75A8-4C0B-8868-1737FA1AAF23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98A0B842-75A8-4C0B-8868-1737FA1AAF23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98A0B842-75A8-4C0B-8868-1737FA1AAF23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98A0B842-75A8-4C0B-8868-1737FA1AAF23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

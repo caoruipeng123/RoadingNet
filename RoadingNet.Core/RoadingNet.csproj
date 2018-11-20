@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CECDCC4E-FCF1-47F1-87EE-1E2E976D8DEB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>RoadingNet</RootNamespace>
+    <AssemblyName>RoadingNet</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Cache\CachedTypeManager.cs" />
+    <Compile Include="Cache\ICache.cs" />
+    <Compile Include="Cache\ObjectDefinationCacheManager.cs" />
+    <Compile Include="Collections\ISet.cs" />
+    <Compile Include="Collections\Set.cs" />
+    <Compile Include="ConfigurationHandler\ContextHandler.cs" />
+    <Compile Include="ConfigurationHandler\ObjectsHandler.cs" />
+    <Compile Include="Context\AbstractCoreContext.cs" />
+    <Compile Include="Context\ConfigConst.cs" />
+    <Compile Include="Context\ContextInit.cs" />
+    <Compile Include="Context\ContextManager.cs" />
+    <Compile Include="Context\ICoreContext.cs" />
+    <Compile Include="Context\XmlCoreContext.cs" />
+    <Compile Include="Factory\AbstractObjectFactory.cs" />
+    <Compile Include="Factory\ConstructorInfoResolver.cs" />
+    <Compile Include="Factory\IObjectAutowireFactory.cs" />
+    <Compile Include="Factory\IObjectFactory.cs" />
+    <Compile Include="Factory\DefaultObjectFactory.cs" />
+    <Compile Include="Factory\DefaultObjectAutowireFactory.cs" />
+    <Compile Include="Object\ObjectDefinationValueParser.cs" />
+    <Compile Include="Object\ObjectDefination\AbstractObjectDefination.cs" />
+    <Compile Include="Object\ObjectDefination\ChildObjectDefination.cs" />
+    <Compile Include="Object\ObjectDefination\IObjectDefination.cs" />
+    <Compile Include="Object\ObjectDefination\ObjectReference.cs" />
+    <Compile Include="Object\PropertyParser.cs" />
+    <Compile Include="Object\XmlObjectDefinationParser.cs" />
+    <Compile Include="Resource\AbstractResource.cs" />
+    <Compile Include="Resource\ConfigSectionResource.cs" />
+    <Compile Include="Resource\IResource.cs" />
+    <Compile Include="Object\ConstructorInfos.cs" />
+    <Compile Include="Object\ObjectDefination\RootObjectDefination.cs" />
+    <Compile Include="Object\PropertyInfos.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\ResourceManager.cs" />
+    <Compile Include="Utils\ConfigurationUtils.cs" />
+    <Compile Include="Utils\DynamicUtils.cs" />
+    <Compile Include="Utils\ExceptionUtils.cs" />
+    <Compile Include="Utils\Extentions.cs" />
+    <Compile Include="Object\TypeParser.cs" />
+    <Compile Include="Utils\XmlUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core\" />
+    <Folder Include="Dynamic\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
