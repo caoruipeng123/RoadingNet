@@ -15,6 +15,7 @@ namespace Roading.Net.Test
             object baseObj = context.GetObject("BaseTypePropertyTest");//基础类型注入
             object arrayObj = context.GetObject("ArrayPropertyTest");//基础类型数据注入
             Console.ReadLine();
+            Console.ReadLine();
         }
     }
     /// <summary>
