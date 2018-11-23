@@ -15,6 +15,5 @@ namespace RoadingNet.Cache
         void Remove(string key);
         int Count { get; }
         ICollection Keys { get; }
-
     }
 }

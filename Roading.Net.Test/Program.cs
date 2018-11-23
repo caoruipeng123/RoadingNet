@@ -137,6 +137,6 @@ namespace Roading.Net.Test
     /// </summary>
     public class ListPropertyTest
     {
-        public List<string> ListTest { get; set; }
+        public List<string> ListStringTest { get; set; }
     }
 }

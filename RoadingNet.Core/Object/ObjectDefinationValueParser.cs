@@ -1,5 +1,6 @@
 ﻿using RoadingNet.Utils;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -36,29 +37,34 @@ namespace RoadingNet.Object
             if (requiredType.IsArray)//数组  
             {
                 Type elementType = requiredType.GetElementType();
+
                 if (valueType==typeof(string))
                 {
-                    string[] array = null;
-                    if (requiredType.Equals(typeof(char[])) || requiredType.Equals(typeof(char?[])))
-                    {
-                        array = ((string)value).ToCharStringArray();
-                    }
-                    else
-                    {
-                        array = value.ToString().Split(new char[] { ',', '，' });
-                    }
+                    string[] array = ConvertToStringArray(requiredType,value.ToString());
+                    //if (requiredType.Equals(typeof(char[])) || requiredType.Equals(typeof(char?[])))
+                    //{
+                    //    array = ((string)value).ToCharStringArray();
+                    //}
+                    //else
+                    //{
+                    //    array = value.ToString().Split(new char[] { ',', '，' });
+                    //}
                     newValue = ConvertToArray(array, elementType);
                 }
                 else if(valueType==typeof(List<object>))
                 {
-                    
                     newValue = ConvertToArray((List<object>)value, elementType);
                 }
                 return newValue;
             }
             else if (requiredType.IsGenericType)//泛型 
             {
-                
+                Type elementType = requiredType.GetElementType();
+                if (valueType == typeof(string))
+                {
+                    ///requiredType为：<see cref="List<char>"/>或者<see cref="List<char?>"/>
+                    string[] array = ConvertToStringArray(requiredType, value.ToString());
+                }
                 //return newValue; 
             }
             try
@@ -82,6 +88,23 @@ namespace RoadingNet.Object
                 throw ex;
             }
             return newValue;
+        }
+        public string[] ConvertToStringArray(Type requiredType,string str)
+        {
+            string[] array = null;
+            if (str.IsNotNullOrEmpty())
+            {
+                return array;
+            }
+            if (requiredType.Equals(typeof(char[])) || requiredType.Equals(typeof(char?[]))||requiredType.Equals(typeof(List<char>))||requiredType.Equals(typeof(List<char?>)))
+            {
+                array = str.ToCharStringArray();
+            }
+            else
+            {
+                array = str.ToString().Split(new char[] { ',', '，' });
+            }
+            return array;
         }
         public object ConvertToArray(string[] strArray, Type requiredType)
         {
@@ -123,7 +146,9 @@ namespace RoadingNet.Object
         }
         public object ConvertToCollection()
         {
-            return null;
+            IList list = null;
+
+            return list;
         }
         public TypeConverter GetConverter(Type type)
         {
