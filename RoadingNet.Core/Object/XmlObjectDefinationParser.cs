@@ -1,4 +1,5 @@
 ﻿using RoadingNet.Cache;
+using RoadingNet.Collections;
 using RoadingNet.Context;
 using RoadingNet.Resource;
 using RoadingNet.Utils;
@@ -194,7 +195,7 @@ namespace RoadingNet.Object
                 case ConfigConst.DictionaryElement://解析字典类型 ParseDictionaryType
                     obj = LoadDictionaryProperty(element);
                     break;
-                case ConfigConst.ValueElement:
+                case ConfigConst.ValueElement://解析value节点
                     obj = LoadValueNode(element);
                     break;
             }
@@ -217,7 +218,19 @@ namespace RoadingNet.Object
             Property property = null;
             if (element != null && element.ChildNodes != null && element.ChildNodes.Count > 0)
             {
-                
+                property = new Property();
+                DefinationList list = new DefinationList();
+                string elementType = XmlUtils.GetAttributeValue(element, ConfigConst.ElementTypeAttribute);
+                list.ConfigElementType = CachedTypeManager.GetType(elementType);
+                foreach(XmlElement node in element)
+                {
+                    if (node != null)
+                    {
+                        list.Add(LoadSubProperty(node));
+                    }
+                }
+                property.PropertyValueType = typeof(DefinationList);
+                property.PropertyValue = list;
             }
             return property;
         }
@@ -293,7 +306,6 @@ namespace RoadingNet.Object
                 {
                     constructorArgument = new ConstructorArgument(index, value, typeValue);
                 }
-
             }
             return constructorArgument;
         }

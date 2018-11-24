@@ -22,6 +22,18 @@ namespace RoadingNet.Object
                 }
             }
         }
+        public Property this[string propertyName]
+        {
+            get
+            {
+                List<Property> propertyList = this.Where(u => u.PropertyName == propertyName).ToList();
+                if (propertyList != null && propertyList.Count==1)
+                {
+                    return propertyList[0];
+                }
+                return null;
+            }
+        }
     }
     public class Property
     {
@@ -41,6 +53,16 @@ namespace RoadingNet.Object
             this.propertyValue = propertyValue;
             this.propertyValueType = propertyValueType;
         }
+        public Property(string propertyName, object propertyValue, Type propertyValueType,Type applicationValueType)
+        {
+            this.propertyName = propertyName;
+            this.propertyValue = propertyValue;
+            this.propertyValueType = propertyValueType;
+            this.ApplicationValueType = applicationValueType;
+        }
+        /// <summary>
+        /// 属性名称
+        /// </summary>
         public string PropertyName
         {
             get
@@ -52,6 +74,9 @@ namespace RoadingNet.Object
                 propertyName = value;
             }
         }
+        /// <summary>
+        /// 从配置文件中解析出来的属性值，注意：该值不能直接赋给程序中的属性
+        /// </summary>
         public object PropertyValue
         {
             get
@@ -63,6 +88,9 @@ namespace RoadingNet.Object
                 propertyValue = value;
             }
         }
+        /// <summary>
+        /// 配置文件中对该节点定义的类型
+        /// </summary>
         public Type PropertyValueType
         {
             get
@@ -74,5 +102,9 @@ namespace RoadingNet.Object
                 propertyValueType = value;
             }
         }
+        /// <summary>
+        /// 应用程序中对该属性节点定义的类型
+        /// </summary>
+        public Type ApplicationValueType{get;set;}
     }
 }

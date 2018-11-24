@@ -1,4 +1,5 @@
-﻿using RoadingNet.Utils;
+﻿using RoadingNet.Collections;
+using RoadingNet.Utils;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,30 +26,27 @@ namespace RoadingNet.Object
             }
             return newValue;
         }
+        /// <summary>
+        /// 将value转换为指定类型requiredType
+        /// </summary>
+        /// <param name="requiredType"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
         public object ConvertValueIfNeed(Type requiredType, object value)
         {
             object newValue = null;
             Type valueType = value.GetType();
             //调用者.isAssignableFrom(调用者本身或者子类的class)返回true,反之false  
-            if (requiredType.IsAssignableFrom(value.GetType()))
+            if (requiredType.IsAssignableFrom(valueType))
             {
                 return value;
             }
             if (requiredType.IsArray)//数组  
             {
                 Type elementType = requiredType.GetElementType();
-
                 if (valueType==typeof(string))
                 {
                     string[] array = ConvertToStringArray(requiredType,value.ToString());
-                    //if (requiredType.Equals(typeof(char[])) || requiredType.Equals(typeof(char?[])))
-                    //{
-                    //    array = ((string)value).ToCharStringArray();
-                    //}
-                    //else
-                    //{
-                    //    array = value.ToString().Split(new char[] { ',', '，' });
-                    //}
                     newValue = ConvertToArray(array, elementType);
                 }
                 else if(valueType==typeof(List<object>))
@@ -65,8 +63,13 @@ namespace RoadingNet.Object
                     ///requiredType为：<see cref="List<char>"/>或者<see cref="List<char?>"/>
                     string[] array = ConvertToStringArray(requiredType, value.ToString());
                 }
+                else if (valueType == typeof(DefinationList))
+                {
+                    newValue = ((DefinationList)value).Resolve();
+                }
                 //return newValue; 
             }
+            
             try
             {
                 TypeConverter converter = GetConverter(requiredType);

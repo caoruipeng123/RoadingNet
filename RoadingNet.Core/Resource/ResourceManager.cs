@@ -7,7 +7,7 @@ namespace RoadingNet.Resource
 {
     public sealed class ResourceManager
     {
-        private Dictionary<string, IResource> resouceDic;
+        //private Dictionary<string, IResource> resouceDic;
 
     }
 }

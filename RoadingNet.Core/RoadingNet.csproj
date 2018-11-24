@@ -43,8 +43,8 @@
     <Compile Include="Cache\CachedTypeManager.cs" />
     <Compile Include="Cache\ICache.cs" />
     <Compile Include="Cache\ObjectDefinationCacheManager.cs" />
-    <Compile Include="Collections\ISet.cs" />
-    <Compile Include="Collections\Set.cs" />
+    <Compile Include="Collections\DefinationList.cs" />
+    <Compile Include="Collections\IDefinationCollection.cs" />
     <Compile Include="ConfigurationHandler\ContextHandler.cs" />
     <Compile Include="ConfigurationHandler\ObjectsHandler.cs" />
     <Compile Include="Context\AbstractCoreContext.cs" />
