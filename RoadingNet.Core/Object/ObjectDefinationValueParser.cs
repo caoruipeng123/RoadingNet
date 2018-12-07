@@ -27,62 +27,64 @@ namespace RoadingNet.Object
             return newValue;
         }
         /// <summary>
-        /// 将value转换为指定类型requiredType
+        /// 将sourceValue转换为指定类型targetType
         /// </summary>
-        /// <param name="requiredType"></param>
-        /// <param name="value"></param>
+        /// <param name="targetType">源数据要转换为requiredType类型</param>
+        /// <param name="sourceValue">源数据</param>
         /// <returns></returns>
-        public object ConvertValueIfNeed(Type requiredType, object value)
+        public object ConvertValueIfNeed(Type targetType, object sourceValue)
         {
             object newValue = null;
-            Type valueType = value.GetType();
+            
+            Type sourceType = sourceValue.GetType();
             //调用者.isAssignableFrom(调用者本身或者子类的class)返回true,反之false  
-            if (requiredType.IsAssignableFrom(valueType))
+            if (targetType== sourceType || targetType.IsAssignableFrom(sourceType))
             {
-                return value;
+                return sourceValue;
             }
-            if (requiredType.IsArray)//数组  
+            if (targetType.IsArray)//数组  
             {
-                Type elementType = requiredType.GetElementType();
-                if (valueType==typeof(string))
+                Type elementType = targetType.GetElementType();
+                if (sourceType == typeof(string))
                 {
-                    string[] array = ConvertToStringArray(requiredType,value.ToString());
+                    string[] array = ConvertToStringArray(targetType, sourceValue.ToString());
                     newValue = ConvertToArray(array, elementType);
                 }
-                else if(valueType==typeof(List<object>))
+                else if(sourceType == typeof(List<object>))
                 {
-                    newValue = ConvertToArray((List<object>)value, elementType);
+                    newValue = ConvertToArray((List<object>)sourceValue, elementType);
                 }
                 return newValue;
             }
-            else if (requiredType.IsGenericType)//泛型 
+            else if (targetType.IsGenericType)//泛型 
             {
-                Type elementType = requiredType.GetElementType();
-                if (valueType == typeof(string))
+                Type elementType = targetType.GetElementType();
+                if (sourceType == typeof(string))
                 {
                     ///requiredType为：<see cref="List<char>"/>或者<see cref="List<char?>"/>
-                    string[] array = ConvertToStringArray(requiredType, value.ToString());
+                    string[] array = ConvertToStringArray(targetType, sourceValue.ToString());
                 }
-                else if (valueType == typeof(DefinationList))
+                else if (sourceType == typeof(DefinationList))
                 {
-                    newValue = ((DefinationList)value).Resolve();
+                    newValue = ((DefinationList)sourceValue).Resolve();
                 }
-                //return newValue; 
+                return newValue; 
             }
             
             try
             {
-                TypeConverter converter = GetConverter(requiredType);
-                if (converter != null && converter.CanConvertFrom(value.GetType()))
+                //newValue = sourceValue.To(targetType);
+                TypeConverter converter = GetConverter(targetType);
+                if (converter != null && converter.CanConvertFrom(sourceValue.GetType()))
                 {
-                    newValue = converter.ConvertFrom(value);
+                    newValue = converter.ConvertFrom(sourceValue);
                 }
                 else
                 {
-                    converter = GetConverter(value.GetType());
-                    if (converter != null && converter.CanConvertTo(requiredType))
+                    converter = GetConverter(sourceValue.GetType());
+                    if (converter != null && converter.CanConvertTo(targetType))
                     {
-                        newValue = converter.ConvertTo(value, requiredType);
+                        newValue = converter.ConvertTo(sourceValue, targetType);
                     }
                 }
             }

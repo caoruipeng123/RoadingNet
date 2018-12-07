@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Web;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
-using System.Collections.Generic;
-using Microsoft.VisualBasic;
-using System.Reflection;
 
 /// <summary>
 ///系统类的扩展方法
@@ -304,7 +303,7 @@ public static class Extensions
             throw new Exception($"无法将{obj.GetType().Name}类型数据转换成decimal");
         }
         decimal test;
-        return decimal.TryParse(obj.ToString(), out test) ? test :default(decimal);
+        return decimal.TryParse(obj.ToString(), out test) ? test : default(decimal);
     }
     /// <summary>
     /// 四舍五入保留指定位数
@@ -500,7 +499,7 @@ public static class Extensions
     /// <returns></returns>
     public static Decimal ToMoneyDecimal(this Decimal? money)
     {
-        return decimal.Round(money ?? 0,2,MidpointRounding.AwayFromZero);
+        return decimal.Round(money ?? 0, 2, MidpointRounding.AwayFromZero);
     }
     /// <summary>
     /// 计算小数点位数
@@ -1151,9 +1150,9 @@ public static class Extensions
         PropertyInfo[] pros = type.GetProperties(BindingFlags.Instance | BindingFlags.Public);
         if (pros != null && pros.Length > 0)
         {
-            for(int i = 0; i < pros.Length; i++)
+            for (int i = 0; i < pros.Length; i++)
             {
-                object val = pros[i].GetValue(obj,null);
+                object val = pros[i].GetValue(obj, null);
                 string appendStr = "";
                 if (val != null)
                 {
@@ -1204,7 +1203,7 @@ public static class Extensions
         else
         {
             c = new char?[charArray.Length];
-            for(int i = 0; i < charArray.Length; i++)
+            for (int i = 0; i < charArray.Length; i++)
             {
                 c[i] = charArray[i];
             }
@@ -1224,7 +1223,7 @@ public static class Extensions
             return strArray;
         }
         strArray = new string[charArray.Length];
-        for(int i = 0; i < charArray.Length; i++)
+        for (int i = 0; i < charArray.Length; i++)
         {
             strArray[i] = charArray[i].ToString();
         }
@@ -1243,6 +1242,92 @@ public static class Extensions
             newArray[i] = strArray[i].ToString();
         }
         return newArray;
+    }
+    /// <summary>
+    /// 类型转换
+    /// </summary>
+    /// <typeparam name="T">从指定类型转换到T类型</typeparam>
+    /// <param name="this"></param>
+    /// <returns></returns>
+    public static T To<T>(this Object @this)
+    {
+        if (@this != null)
+        {
+            Type targetType = typeof(T);
+            Type thisType = @this.GetType();
+            if (thisType == targetType || targetType.IsAssignableFrom(thisType))
+
+            {
+                return (T)@this;
+            }
+
+            TypeConverter converter = TypeDescriptor.GetConverter(@this);
+            if (converter != null)
+            {
+                if (converter.CanConvertTo(targetType))
+                {
+                    return (T)converter.ConvertTo(@this, targetType);
+                }
+            }
+
+            converter = TypeDescriptor.GetConverter(targetType);
+            if (converter != null)
+            {
+                if (converter.CanConvertFrom(@this.GetType()))
+                {
+                    return (T)converter.ConvertFrom(@this);
+                }
+            }
+
+            if (@this == DBNull.Value)
+            {
+                return (T)(object)null;
+            }
+        }
+
+        return (T)@this;
+    }
+    /// <summary>
+    /// 类型转换
+    /// </summary>
+    /// <param name="this"></param>
+    /// <param name="targetType">转换到targetType类型</param>
+    /// <returns></returns>
+    public static object To(this Object @this, Type targetType)
+    {
+        if (@this != null)
+        {
+            Type thisType = @this.GetType();
+            if (thisType == targetType || targetType.IsAssignableFrom(thisType))
+            {
+                return @this;
+            }
+
+            TypeConverter converter = TypeDescriptor.GetConverter(@this);
+            if (converter != null)
+            {
+                if (converter.CanConvertTo(targetType))
+                {
+                    return converter.ConvertTo(@this, targetType);
+                }
+            }
+
+            converter = TypeDescriptor.GetConverter(targetType);
+            if (converter != null)
+            {
+                if (converter.CanConvertFrom(@this.GetType()))
+                {
+                    return converter.ConvertFrom(@this);
+                }
+            }
+
+            if (@this == DBNull.Value)
+            {
+                return null;
+            }
+        }
+
+        return @this;
     }
 }
 

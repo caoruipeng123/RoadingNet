@@ -42,10 +42,10 @@ namespace RoadingNet.Factory
                 foreach (Property property in defination.PropertyInfos)
                 {
                     PropertyInfo propertyInfo = instance.GetType().GetProperty(property.PropertyName);
-                    if (property.PropertyValueType == null)
-                    {
-                        property.PropertyValueType = propertyInfo.PropertyType;
-                    }
+                    //if (property.PropertyValueType == null)
+                    //{
+                    //    property.PropertyValueType = propertyInfo.PropertyType;
+                    //}
                     property.PropertyValue = valueParser.ParsePropertyValue(property, propertyInfo.PropertyType);
 
                     if (propertyInfo != null&&propertyInfo.CanWrite)

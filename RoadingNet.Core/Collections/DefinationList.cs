@@ -15,7 +15,7 @@ namespace RoadingNet.Collections
         public Type ConfigElementType { get; set; }
         public IObjectDefination Defination { get; set; }
         public string PropertyName { get; set; }
-        public DefinationList()
+        public DefinationList() 
         {
 
         }

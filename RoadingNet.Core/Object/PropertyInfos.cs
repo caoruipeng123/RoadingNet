@@ -53,13 +53,13 @@ namespace RoadingNet.Object
             this.propertyValue = propertyValue;
             this.propertyValueType = propertyValueType;
         }
-        public Property(string propertyName, object propertyValue, Type propertyValueType,Type applicationValueType)
-        {
-            this.propertyName = propertyName;
-            this.propertyValue = propertyValue;
-            this.propertyValueType = propertyValueType;
-            this.ApplicationValueType = applicationValueType;
-        }
+        //public Property(string propertyName, object propertyValue, Type propertyValueType,Type applicationValueType)
+        //{
+        //    this.propertyName = propertyName;
+        //    this.propertyValue = propertyValue;
+        //    this.propertyValueType = propertyValueType;
+        //    this.ApplicationValueType = applicationValueType;
+        //}
         /// <summary>
         /// 属性名称
         /// </summary>
@@ -102,9 +102,9 @@ namespace RoadingNet.Object
                 propertyValueType = value;
             }
         }
-        /// <summary>
-        /// 应用程序中对该属性节点定义的类型
-        /// </summary>
-        public Type ApplicationValueType{get;set;}
+        ///// <summary>
+        ///// 应用程序中对该属性节点定义的类型
+        ///// </summary>
+        //public Type ApplicationValueType{get;set;}
     }
 }
