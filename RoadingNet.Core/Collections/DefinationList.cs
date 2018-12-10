@@ -17,7 +17,7 @@ namespace RoadingNet.Collections
         public string PropertyName { get; set; }
         public DefinationList() 
         {
-
+            
         }
         public DefinationList(Type configElementType,IObjectDefination defination,string propertyName)
         {
@@ -25,6 +25,7 @@ namespace RoadingNet.Collections
             Defination = defination;
             PropertyName = propertyName;
         }
+        
         public ICollection Resolve()//IObjectDefination defination,string propertyName
         {
             IList list = null;

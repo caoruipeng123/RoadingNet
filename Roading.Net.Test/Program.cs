@@ -1,4 +1,5 @@
 ﻿using RoadingNet.Context;
+using RoadingNet.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +12,7 @@ namespace Roading.Net.Test
     {
         static void Main(string[] args)
         {
+            ArgumentCheck.NotNull(null, "name","错误信息");
             ICoreContext context = ContextManager.GetContext();
             object baseObj = context.GetObject("BaseTypePropertyTest");//基础类型注入
             object arrayObj = context.GetObject("ArrayPropertyTest");//基础类型数据注入
