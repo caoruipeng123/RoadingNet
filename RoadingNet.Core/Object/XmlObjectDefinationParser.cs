@@ -92,6 +92,11 @@ namespace RoadingNet.Object
             }
             return defination;
         }
+        /// <summary>
+        /// 加载ObjectDefination默认属性
+        /// </summary>
+        /// <param name="defination"></param>
+        /// <param name="element"></param>
         void LoadObjectDefault(IObjectDefination defination, XmlElement element)
         {
             bool isSingleton = true;
@@ -201,6 +206,29 @@ namespace RoadingNet.Object
             }
             return obj;
         }
+        object LoadSubProperty(XmlElement element,string propertyName)
+        {
+            object obj = null;
+            switch (element.LocalName.ToLower())
+            {
+                case ConfigConst.ObjectElement:
+                    //property = LoadReferenceProperty(parsedElement,name);
+                    break;
+                case ConfigConst.ListElement://解析集合类型
+                    obj = LoadListProperty(element);
+                    break;
+                case ConfigConst.ArrayElement://解析数组类型
+                    obj = LoadArrayProperty(element);
+                    break;
+                case ConfigConst.DictionaryElement://解析字典类型 ParseDictionaryType
+                    obj = LoadDictionaryProperty(element);
+                    break;
+                case ConfigConst.ValueElement://解析value节点
+                    obj = LoadValueNode(element);
+                    break;
+            }
+            return obj;
+        }
         Property LoadReferenceProperty(XmlElement element, string propertyName)
         {
             Property property = null;
@@ -221,7 +249,7 @@ namespace RoadingNet.Object
                 property = new Property();
                 DefinationList list = new DefinationList();
                 string elementType = XmlUtils.GetAttributeValue(element, ConfigConst.ElementTypeAttribute);
-                list.ConfigElementType = CachedTypeManager.GetType(elementType);
+                //list.ConfigElementType = CachedTypeManager.GetType(elementType);
                 foreach(XmlElement node in element)
                 {
                     if (node != null)
@@ -234,26 +262,23 @@ namespace RoadingNet.Object
             }
             return property;
         }
+        /// <summary>
+        /// 解析Array类型的数据
+        /// </summary>
+        /// <param name="element"></param>
+        /// <returns></returns>
         Property LoadArrayProperty(XmlElement element)
         {
             Property property = null;
-            //string name = XmlUtils.GetAttributeValue(element, ConfigConst.NameAttribute);
-            //string typeStr = XmlUtils.GetAttributeValue(element, ConfigConst.ElementTypeAttribute);
-            //Type type = null;
-            //if (typeStr.IsNotNullOrEmpty())
-            //{
-            //    type= TypeParser.Parse(typeStr);
-            //}
-            
-            List<object> list = new List<object>();
+            DefinationList definationList = new DefinationList();
             if (element != null && element.ChildNodes.Count > 0)
             {
                 foreach(XmlElement item in element.ChildNodes)
                 {
-                    list.Add(LoadSubProperty(item));
+                    definationList.Add(LoadSubProperty(item));
                 }
             }
-            property = new Property("", list,null);
+            property = new Property("", definationList, typeof(DefinationList));
             return property;
         } 
         Property LoadDictionaryProperty(XmlElement element)

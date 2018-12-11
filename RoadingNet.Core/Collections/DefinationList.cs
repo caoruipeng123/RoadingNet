@@ -9,22 +9,22 @@ namespace RoadingNet.Collections
 {
     public class DefinationList:ArrayList
     {
-        /// <summary>
-        /// 集合中元素的类型
-        /// </summary>
-        public Type ConfigElementType { get; set; }
+        ///// <summary>
+        ///// 集合中元素的类型
+        ///// </summary>
+        //public Type ConfigElementType { get; set; }
         public IObjectDefination Defination { get; set; }
         public string PropertyName { get; set; }
-        public DefinationList() 
-        {
+        //public DefinationList() 
+        //{
             
-        }
-        public DefinationList(Type configElementType,IObjectDefination defination,string propertyName)
-        {
-            ConfigElementType = configElementType;
-            Defination = defination;
-            PropertyName = propertyName;
-        }
+        //}
+        //public DefinationList(Type configElementType,IObjectDefination defination,string propertyName)
+        //{
+        //    ConfigElementType = configElementType;
+        //    Defination = defination;
+        //    PropertyName = propertyName;
+        //}
         
         public ICollection Resolve()//IObjectDefination defination,string propertyName
         {
